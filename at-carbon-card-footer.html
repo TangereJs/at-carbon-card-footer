@@ -1,0 +1,78 @@
+<link rel="import" href="../tangere/tangere.html" />
+<link rel="import" href="../at-theme/at-theme.html" />
+<link rel="import" href="../at-link/at-link.html" />
+<link rel="import" href="../at-carbon-icon/at-carbon-icon.html" />
+
+<dom-module id="at-carbon-card-footer">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+
+      .horizontal-layout {
+        @apply(--layout-horizontal);
+      }
+
+      .footer-label {
+        @apply(--layout-flex);
+        @apply(--layout-self-center);
+        @apply(--paper-font-body1);
+        font-size: var(--at-form-input-font-size);
+      }
+
+      .footer-icon {
+        padding: 4px;
+        vertical-align: middle;
+        display: block;
+      }
+    </style>
+    
+    <template is="dom-if" if="[[_computeVisible(label, href)]]">
+      <at-link href="[[href]]" xref="[[xref]]">
+        <div class="horizontal-layout">
+          <div class="footer-label">{{_computeVisible(label, href)}}</div>
+          <at-carbon-icon class="footer-icon" icon="now:caret-right"></at-carbon-icon>
+        </div>
+      </at-link>
+    </template>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "at-carbon-card-footer",
+    properties: {
+      
+      label: {
+        type: String,
+        value: ""
+      },
+
+      href: {
+        type: String,
+        value: ""
+      },
+
+      xref: {
+        type: String,
+        value: ""
+      }
+    },
+
+    $meta: [{
+      playground: false,
+      title: "Card Footer",
+      type: "element",
+      xtype: "at-carbon-card-footer",
+    }],
+
+    _computeVisible: function (label, href) {
+      return label || href;
+    },  
+
+    ready: function () {
+
+    }
+  });
+</script>

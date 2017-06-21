@@ -1,0 +1,13 @@
+{
+  "name": "at-carbon-card",
+  "version": "1.0.0.0",
+  "private": true,
+  "dependencies": {
+    "tangere": "TangereJs/tangere#master",
+    "at-theme": "TangereJs/at-theme#master",
+    "at-link": "TangereJs/at-link#master",
+    "at-carbon-icon": "TangereJs/at-carbon-icon#master",
+    "at-doc-viewer": "TangereJs/at-doc-viewer#master",
+    "at-doc-snippet": "TangereJs/at-doc-snippet#master"
+  }
+}
