@@ -2,6 +2,7 @@
 <link rel="import" href="../at-theme/at-theme.html" />
 <link rel="import" href="../at-link/at-link.html" />
 <link rel="import" href="../at-carbon-icon-button/at-carbon-icon-button.html" />
+<link rel="import" href="../at-carbon-clamp/at-carbon-clamp.html" />
 
 <dom-module id="at-carbon-card-footer">
   <template>
@@ -24,6 +25,7 @@
         @apply(--layout-self-center);
         @apply(--paper-font-body1);
         font-size: var(--at-form-input-font-size);
+        width: 100%;
       }
 
       .footer-label {
@@ -31,6 +33,7 @@
         @apply(--layout-self-center);
         @apply(--paper-font-body1);
         font-size: var(--at-form-input-font-size);
+        width: 100%;
       }
 
       .footer-spacer {
@@ -49,7 +52,7 @@
       <template is="dom-if" if="[[_computeVisible(label, href)]]">
         <at-link href="[[href]]" xref="[[xref]]" class="footer-link">
           <div class="horizontal-layout">
-            <div class="footer-label">{{label}}</div>
+            <at-carbon-clamp class="footer-label" text="[[label]]"></at-carbon-clamp>
             <template is="dom-if" if="[[_computeRenderSpacer(label, href, expandable)]]">
               <div class="footer-spacer"></div>
             </template>
