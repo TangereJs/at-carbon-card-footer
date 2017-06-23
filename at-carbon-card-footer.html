@@ -1,18 +1,29 @@
 <link rel="import" href="../tangere/tangere.html" />
 <link rel="import" href="../at-theme/at-theme.html" />
 <link rel="import" href="../at-link/at-link.html" />
-<link rel="import" href="../at-carbon-icon/at-carbon-icon.html" />
+<link rel="import" href="../at-carbon-icon-button/at-carbon-icon-button.html" />
 
 <dom-module id="at-carbon-card-footer">
   <template>
     <style>
-      :host {
+       :host {
         display: block;
         box-sizing: border-box;
       }
 
       .horizontal-layout {
         @apply(--layout-horizontal);
+      }
+
+      .horizontal-layout { 
+        @apply(--layout-end-justified);
+      }
+
+      .footer-link {
+        @apply(--layout-flex);
+        @apply(--layout-self-center);
+        @apply(--paper-font-body1);
+        font-size: var(--at-form-input-font-size);
       }
 
       .footer-label {
@@ -22,56 +33,128 @@
         font-size: var(--at-form-input-font-size);
       }
 
-      .footer-icon {
-        padding: 4px;
-        vertical-align: middle;
+      .footer-spacer {
         display: block;
+        position: relative;
+        width: 32px;
+      }
+
+      .footer-icon {
+        vertical-align: middle;
+        display: block;        
       }
     </style>
-    
-    <template is="dom-if" if="[[_computeVisible(label, href)]]">
-      <at-link href="[[href]]" xref="[[xref]]">
-        <div class="horizontal-layout">
-          <div class="footer-label">{{_computeVisible(label, href)}}</div>
-          <at-carbon-icon class="footer-icon" icon="now:caret-right"></at-carbon-icon>
+
+    <div class="horizontal-layout">
+      <template is="dom-if" if="[[_computeVisible(label, href)]]">
+        <at-link href="[[href]]" xref="[[xref]]" class="footer-link">
+          <div class="horizontal-layout">
+            <div class="footer-label">{{_computeVisible(label, href)}}</div>
+            <template is="dom-if" if="[[_computeRenderSpacer(label, href, expandable)]]">
+              <div class="footer-spacer"></div>
+            </template>
+          </div>
+        </at-link>
+      </template>
+      <template is="dom-if" if="[[expandable]]">
+        <div class="horizontal-layout flex-end">
+          <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>          
         </div>
-      </at-link>
-    </template>
+      </template>
+    </div>
   </template>
 </dom-module>
 <script>
   Polymer({
     is: "at-carbon-card-footer",
     properties: {
-      
+
+      /**
+       * Link label
+       * 
+       * @property label
+       * @type String
+       * @default empty 
+       */
       label: {
         type: String,
         value: ""
       },
 
+      /**
+       * Link href
+       * 
+       * @property href
+       * @type String
+       * @default empty
+       */
       href: {
         type: String,
         value: ""
       },
 
+      /**
+       * Link xref
+       * 
+       * @property xref
+       * @type String
+       * @default empty 
+       */
       xref: {
         type: String,
         value: ""
+      },
+
+      /**
+       * When true toggle icon is displayed. When false toggle icon is hidden.
+       * 
+       * @property expandable
+       * @type Boolean
+       * @default false 
+       */
+      expandable: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * When false denotes collapsed state. When true denotes expanded state.
+       * 
+       * @property value
+       * @type Boolean
+       * @default false
+       */
+      value: {
+        type: Boolean,
+        value: false,
+        notify: true
       }
+
     },
 
     $meta: [{
-      playground: false,
       title: "Card Footer",
       type: "element",
       xtype: "at-carbon-card-footer",
     }],
 
-    _computeVisible: function (label, href) {
-      return label || href;
-    },  
+    _computeVisible: function(label, href) {
+      return label && href;
+    },
 
-    ready: function () {
+    _computeRenderSpacer: function(label, href, expandable) {
+      return label && href && expandable;
+    },
+
+    _computeIconName: function(value) {
+      return value ? "now:caret-up" : "now:caret-down";
+    },
+
+    _handleToggleButtonTap: function(event) {
+      this.value = !this.value;
+    },
+
+    ready: function() {
 
     }
   });
