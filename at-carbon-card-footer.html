@@ -2,10 +2,12 @@
 <link rel="import" href="../at-theme/at-theme.html" />
 <link rel="import" href="../at-link/at-link.html" />
 <link rel="import" href="../at-carbon-icon-button/at-carbon-icon-button.html" />
+<link rel="import" href="../at-core-style-classes/at-core-style-classes.html" />
 <link rel="import" href="../at-carbon-clamp/at-carbon-clamp.html" />
 
 <dom-module id="at-carbon-card-footer">
   <template>
+    <style include="at-core-style-classes"></style>
     <style>
        :host {
         display: block;
@@ -52,7 +54,7 @@
       <template is="dom-if" if="[[_computeVisible(label, href)]]">
         <at-link href="[[href]]" xref="[[xref]]" class="footer-link">
           <div class="horizontal-layout">
-            <at-carbon-clamp class="footer-label" text="[[label]]"></at-carbon-clamp>
+            <at-carbon-clamp class="footer-label plsm" text="[[label]]"></at-carbon-clamp>
             <template is="dom-if" if="[[_computeRenderSpacer(label, href, expandable)]]">
               <div class="footer-spacer"></div>
             </template>
