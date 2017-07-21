@@ -4,6 +4,7 @@
 <link rel="import" href="../at-carbon-icon-button/at-carbon-icon-button.html" />
 <link rel="import" href="../at-core-style-classes/at-core-style-classes.html" />
 <link rel="import" href="../at-carbon-clamp/at-carbon-clamp.html" />
+<link rel="import" href="../at-carbon-icon/at-carbon-icon.html" />
 
 <dom-module id="at-carbon-card-footer">
   <template>
@@ -48,6 +49,11 @@
         vertical-align: middle;
         display: block;        
       }
+      
+      .empty-icon {
+        width: 40px;
+        height: 40px; /* *todo*: define/find var */
+      }
     </style>
 
     <div class="horizontal-layout">
@@ -61,11 +67,16 @@
           </div>
         </at-link>
       </template>
-      <template is="dom-if" if="[[expandable]]">
+     
         <div class="horizontal-layout flex-end">
-          <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>          
+          <template is="dom-if" if="[[expandable]]">
+            <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>  
+          </template>
+          <template is="dom-if" if="[[!expandable]]">
+            <div class="empty-icon"></div>
+          </template>
         </div>
-      </template>
+     
     </div>
   </template>
 </dom-module>
