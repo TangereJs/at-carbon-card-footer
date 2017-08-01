@@ -56,11 +56,11 @@
       }
     </style>
 
-    <div class="horizontal-layout">
+    <div class="horizontal-layout bt">
       <template is="dom-if" if="[[_computeVisible(label, href)]]">
         <at-link href="[[href]]" xref="[[xref]]" class="footer-link">
           <div class="horizontal-layout">
-            <at-carbon-clamp class="footer-label plsm" text="[[label]]"></at-carbon-clamp>
+            <at-carbon-clamp class="footer-label pl" text="[[label]]"></at-carbon-clamp>
             <template is="dom-if" if="[[_computeRenderSpacer(label, href, expandable)]]">
               <div class="footer-spacer"></div>
             </template>
