@@ -15,27 +15,14 @@
         box-sizing: border-box;
       }
 
-      .horizontal-layout {
-        @apply(--layout-horizontal);
-      }
-
-      .horizontal-layout { 
-        @apply(--layout-end-justified);
-      }
 
       .footer-link {
-        @apply(--layout-flex);
-        @apply(--layout-self-center);
-        @apply(--paper-font-body1);
-        font-size: var(--at-form-input-font-size);
+        display: block;
         width: 100%;
+        height: 40px; /* *todo*: define/find var */
       }
 
       .footer-label {
-        @apply(--layout-flex);
-        @apply(--layout-self-center);
-        @apply(--paper-font-body1);
-        font-size: var(--at-form-input-font-size);
         width: 100%;
       }
 
@@ -56,10 +43,10 @@
       }
     </style>
 
-    <div class="horizontal-layout bt">
+    <div class="layout-horizontal bt">
       <template is="dom-if" if="[[_computeVisible(label, href)]]">
-        <at-link href="[[href]]" xref="[[xref]]" label="[[label]]" class="footer-link">
-          <div class="horizontal-layout">
+        <at-link href="[[href]]" xref="[[xref]]" label="[[label]]" class="footer-link layout-flex font-subhead">
+          <div class="layout-horizontal layout-center" style="height:40px">
             <at-carbon-clamp class="footer-label pl" text="[[label]]"></at-carbon-clamp>
             <template is="dom-if" if="[[_computeRenderSpacer(label, href, expandable)]]">
               <div class="footer-spacer"></div>
@@ -68,14 +55,14 @@
         </at-link>
       </template>
      
-        <div class="horizontal-layout flex-end">
-          <template is="dom-if" if="[[expandable]]">
-            <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>  
-          </template>
-          <template is="dom-if" if="[[!expandable]]">
-            <div class="empty-icon"></div>
-          </template>
-        </div>
+      <div class="layout-horizontal layout-end-justified">
+        <template is="dom-if" if="[[expandable]]">
+          <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>  
+        </template>
+        <template is="dom-if" if="[[!expandable]]">
+          <div class="empty-icon"></div>
+        </template>
+      </div>
      
     </div>
   </template>
