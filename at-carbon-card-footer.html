@@ -183,8 +183,8 @@
 
     _handleToggleButtonTap: function (event) {
       this.value = !this.value;
-      event.srcElement.setAttribute("tap-event", "container-mode");
-      event.srcElement.setAttribute("tap-event-data", this.value ? "expanded" : "collapsed");
+      event.target.setAttribute("tap-event", "container-mode");
+      event.target.setAttribute("tap-event-data", this.value ? "expanded" : "collapsed");
       
     },
 
