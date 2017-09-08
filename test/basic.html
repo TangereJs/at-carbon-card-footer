@@ -1,0 +1,737 @@
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>at-carbon-card-footer tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../at-carbon-card-footer.html">
+  <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html" />
+
+</head>
+<body>
+
+  <!-- label and href are not set -->
+  <test-fixture id="linkHidden_01">
+    <template>
+      <at-carbon-card-footer></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+  
+  <!-- label is set, href is not set -->
+  <test-fixture id="linkHidden_02">
+    <template>
+      <at-carbon-card-footer 
+        label="lorem ipsum"
+      ></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <!-- label is not set, href is set -->
+ <test-fixture id="linkHidden_03">
+    <template>
+      <at-carbon-card-footer 
+        href="http://www.demo1.com"
+      ></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <!-- label is set, href is set -->
+  <test-fixture id="linkHidden_04">
+    <template>
+      <at-carbon-card-footer 
+        label="lorem ipsum"
+        href="http://www.demo1.com"
+      ></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <!-- label is set, href is set, xref is set -->
+  <test-fixture id="linkHidden_05">
+    <template>
+      <at-carbon-card-footer 
+        label="lorem ipsum"
+        href="http://www.demo1.com"
+        xref="http://www.demo2.com"
+      ></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <!-- expandable is not set -->
+  <test-fixture id="exapndable_01">
+    <template>
+      <at-carbon-card-footer></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <!-- expandable is set -->
+  <test-fixture id="exapndable_02">
+    <template>
+      <at-carbon-card-footer 
+        expandable
+      ></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <!-- modelRoot is not set -->
+  <test-fixture id="modelRoot_01">
+    <template>
+      <at-carbon-card-footer></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+  
+  <!-- modelRoot is set -->
+  <test-fixture id="modelRoot_02">
+    <template>
+      <at-carbon-card-footer
+        model-root="data.href"
+      ></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <!-- fixture for property based tests -->
+  <test-fixture id="propertyTest">
+    <template>
+      <at-carbon-card-footer></at-carbon-card-footer>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('basic', function() {
+
+      function assertPropertyValue(el, pName, pValue) {
+        assert.equal(el[pName], pValue);
+      }
+
+      function getComputedStyleValue(el, pName) {
+        var cmpStyle = window.getComputedStyle(el);
+        return cmpStyle.getPropertyValue(pName);
+      }
+
+      function getQueryRoot(el) {        
+        return el.shadowRoot || el;
+      }
+
+      var labelValue = 'lorem ipsum';
+      var demo1Link = 'http://www.demo1.com';
+      var demo2Link = 'http://www.demo2.com';
+
+      suite('test intial state', function() {
+
+        test('test initial state', function() { 
+          var el = fixture('linkHidden_01');
+
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        });
+
+      });
+
+      suite('test label href behavior', function() {
+        
+        test('label and href not set', function() {
+          var el = fixture('linkHidden_01');
+
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+          
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        });
+
+        test('label set, href not set', function() {
+          var el = fixture('linkHidden_02');
+
+          assertPropertyValue(el, 'label', 'lorem ipsum');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+          
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        });
+
+        test('label not set, href set', function() {
+          var el = fixture('linkHidden_03');
+
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', demo1Link);
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+          
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        });
+
+        test('label set, href set', function() {
+          var el = fixture('linkHidden_04');
+
+          assertPropertyValue(el, 'label', 'lorem ipsum');
+          assertPropertyValue(el, 'href', demo1Link);
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.notEqual(linkEl, null);
+
+          assertPropertyValue(linkEl, 'label', 'lorem ipsum');
+          assertPropertyValue(linkEl, 'href', demo1Link);
+          assertPropertyValue(linkEl, 'xref', '');
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        });
+
+        test('label set, href set, xref set', function() {
+          var el = fixture('linkHidden_05');
+
+          assertPropertyValue(el, 'label', 'lorem ipsum');
+          assertPropertyValue(el, 'href', demo1Link);
+          assertPropertyValue(el, 'xref', demo2Link);
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.notEqual(linkEl, null);
+
+          assertPropertyValue(linkEl, 'label', 'lorem ipsum');
+          assertPropertyValue(linkEl, 'href', demo1Link);
+          assertPropertyValue(linkEl, 'xref', demo2Link);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        });
+
+      });
+
+      suite('expandable tests', function() {
+
+        test('expandable is not set', function() {
+          var el = fixture('exapndable_01');
+
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        });
+
+        test('expandable is set', function() {
+          var el = fixture('exapndable_02');
+
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', true);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.notEqual(iconButton, null);
+          assertPropertyValue(iconButton, 'icon', 'now:caret-down');
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.equal(emptyIcon, null);
+        });
+
+        test('expandable is set tapping changes icon', function() {
+          var el = fixture('exapndable_02');
+
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', true);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.notEqual(iconButton, null);
+          assertPropertyValue(iconButton, 'icon', 'now:caret-down');
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.equal(emptyIcon, null);
+
+          MockInteractions.tap(iconButton);
+          assertPropertyValue(el, 'value', true);
+          assertPropertyValue(iconButton, 'icon', 'now:caret-up');
+
+          MockInteractions.tap(iconButton);
+          assertPropertyValue(el, 'value', false);
+          assertPropertyValue(iconButton, 'icon', 'now:caret-down');
+
+        });
+
+      });
+
+      suite('modelRoot behavior', function() {
+
+        test('modelroot is not set', function() {
+          var el = fixture('modelRoot_01');
+          
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+          
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+
+          var event = { 
+            detail: { 
+              model: { 
+                href: demo1Link 
+              }
+            }
+          };
+
+          el.actionListener(event);
+          assertPropertyValue(el, 'href', '');
+        }); 
+
+        test('modelroot is set', function() {
+          var el = fixture('modelRoot_02');
+          
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', 'data.href');
+          
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+
+          var event = { 
+            detail: { 
+              model: { 
+                data: {
+                  href: demo1Link 
+                }
+              }
+            }
+          };
+
+          el.actionListener(event);
+          assertPropertyValue(el, 'href', demo1Link);
+        }); 
+
+      });
+
+      suite('tests where property values are set in code', function() {
+
+        function assertInitialState(el) {
+          assertPropertyValue(el, 'label', '');
+          assertPropertyValue(el, 'href', '');
+          assertPropertyValue(el, 'xref', '');
+
+          assertPropertyValue(el, 'expandable', false);
+          assertPropertyValue(el, 'value', false);
+
+          assertPropertyValue(el, 'modelRoot', '');
+          
+          Polymer.dom.flush();
+
+          var linkEl = getQueryRoot(el).querySelector('at-link');
+          assert.equal(linkEl, null);
+
+          var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+          assert.equal(iconButton, null);
+
+          var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+          assert.notEqual(emptyIcon, null);
+        }
+
+        suite('label and href behavior', function() {
+
+          test('label and href not set', function() {
+            var el = fixture('propertyTest');
+
+            assertInitialState(el);
+          });
+
+          test('label is set, href not set', function() {
+            var el = fixture('propertyTest');
+            
+            assertInitialState(el);
+  
+            el.label = labelValue;
+
+            assertPropertyValue(el, 'label', labelValue);
+            assertPropertyValue(el, 'href', '');
+            assertPropertyValue(el, 'xref', '');
+
+            assertPropertyValue(el, 'expandable', false);
+            assertPropertyValue(el, 'value', false);
+
+            assertPropertyValue(el, 'modelRoot', '');
+            
+            Polymer.dom.flush();
+
+            var linkEl = getQueryRoot(el).querySelector('at-link');
+            assert.equal(linkEl, null);
+
+            var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+            assert.equal(iconButton, null);
+
+            var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+            assert.notEqual(emptyIcon, null);
+          });
+
+          test('label is not set, href is set', function() {
+            var el = fixture('propertyTest');
+            
+            assertInitialState(el);
+  
+            el.href = demo1Link;
+
+            assertPropertyValue(el, 'label', '');
+            assertPropertyValue(el, 'href', demo1Link);
+            assertPropertyValue(el, 'xref', '');
+
+            assertPropertyValue(el, 'expandable', false);
+            assertPropertyValue(el, 'value', false);
+
+            assertPropertyValue(el, 'modelRoot', '');
+            
+            Polymer.dom.flush();
+
+            var linkEl = getQueryRoot(el).querySelector('at-link');
+            assert.equal(linkEl, null);
+
+            var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+            assert.equal(iconButton, null);
+
+            var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+            assert.notEqual(emptyIcon, null);
+          });
+
+          test('label is set, href is set', function() {
+            var el = fixture('propertyTest');
+            
+            assertInitialState(el);
+
+            el.label = labelValue;
+            el.href = demo1Link;
+
+            assertPropertyValue(el, 'label', labelValue);
+            assertPropertyValue(el, 'href', demo1Link);
+            assertPropertyValue(el, 'xref', '');
+
+            assertPropertyValue(el, 'expandable', false);
+            assertPropertyValue(el, 'value', false);
+
+            assertPropertyValue(el, 'modelRoot', '');
+            
+            Polymer.dom.flush();
+
+            var linkEl = getQueryRoot(el).querySelector('at-link');
+            assert.notEqual(linkEl, null);
+
+            assertPropertyValue(linkEl, 'label', labelValue);
+            assertPropertyValue(linkEl, 'href', demo1Link);
+            assertPropertyValue(linkEl, 'xref', '');
+
+            var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+            assert.equal(iconButton, null);
+
+            var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+            assert.notEqual(emptyIcon, null);
+          });
+
+          test('label is set, href is set, xref is set', function() {
+            var el = fixture('propertyTest');
+            
+            assertInitialState(el);
+
+            el.label = labelValue;
+            el.href = demo1Link;
+            el.xref = demo2Link;
+
+            assertPropertyValue(el, 'label', labelValue);
+            assertPropertyValue(el, 'href', demo1Link);
+            assertPropertyValue(el, 'xref', demo2Link);
+
+            assertPropertyValue(el, 'expandable', false);
+            assertPropertyValue(el, 'value', false);
+
+            assertPropertyValue(el, 'modelRoot', '');
+            
+            Polymer.dom.flush();
+
+            var linkEl = getQueryRoot(el).querySelector('at-link');
+            assert.notEqual(linkEl, null);
+
+            assertPropertyValue(linkEl, 'label', labelValue);
+            assertPropertyValue(linkEl, 'href', demo1Link);
+            assertPropertyValue(linkEl, 'xref', demo2Link);
+
+            var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+            assert.equal(iconButton, null);
+
+            var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+            assert.notEqual(emptyIcon, null);
+          });
+          
+        });
+        
+        suite('expandable behavior', function() {
+          
+          test('expandable not set', function() {
+            
+            var el = fixture('propertyTest');
+            assertInitialState(el);
+          });
+
+          test('expandable is set', function() {
+            
+            var el = fixture('propertyTest');
+            assertInitialState(el);
+
+            el.expandable = true;
+
+            assertPropertyValue(el, 'label', '');
+            assertPropertyValue(el, 'href', '');
+            assertPropertyValue(el, 'xref', '');
+
+            assertPropertyValue(el, 'expandable', true);
+            assertPropertyValue(el, 'value', false);
+
+            assertPropertyValue(el, 'modelRoot', '');
+            
+            Polymer.dom.flush();
+
+            var linkEl = getQueryRoot(el).querySelector('at-link');
+            assert.equal(linkEl, null);
+
+            var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+            assert.notEqual(iconButton, null);
+
+            assertPropertyValue(iconButton, 'icon', 'now:caret-down');
+
+            var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+            // NOTE template dom-if behavior
+            // expandable is initally false, so empty-icon div is in DOM tree
+            // when expandable is set to true, template dom-if sets style="display: none" on the div
+            // it doesn't remove it from DOM
+            assert.notEqual(emptyIcon, null);
+            var styleDisplayValue = getComputedStyleValue(emptyIcon, 'display');
+            assert.equal(styleDisplayValue, 'none');
+          });
+
+          test('expandable is set, tapping changes icon', function() {
+            
+            var el = fixture('propertyTest');
+            assertInitialState(el);
+
+            el.expandable = true;
+
+            assertPropertyValue(el, 'label', '');
+            assertPropertyValue(el, 'href', '');
+            assertPropertyValue(el, 'xref', '');
+
+            assertPropertyValue(el, 'expandable', true);
+            assertPropertyValue(el, 'value', false);
+
+            assertPropertyValue(el, 'modelRoot', '');
+            
+            Polymer.dom.flush();
+
+            var linkEl = getQueryRoot(el).querySelector('at-link');
+            assert.equal(linkEl, null);
+
+            var iconButton = getQueryRoot(el).querySelector('at-carbon-icon-button');
+            assert.notEqual(iconButton, null);
+
+            assertPropertyValue(iconButton, 'icon', 'now:caret-down');
+
+            var emptyIcon = getQueryRoot(el).querySelector('.empty-icon');
+            // NOTE template dom-if behavior
+            // expandable is initally false, so empty-icon div is in DOM tree
+            // when expandable is set to true, template dom-if sets style="display: none" on the div
+            // it doesn't remove it from DOM
+            assert.notEqual(emptyIcon, null);
+            var styleDisplayValue = getComputedStyleValue(emptyIcon, 'display');
+            assert.equal(styleDisplayValue, 'none');
+
+            MockInteractions.tap(iconButton);
+            assertPropertyValue(el, 'value', true);
+            assertPropertyValue(iconButton, 'icon', 'now:caret-up');
+
+            MockInteractions.tap(iconButton);
+            assertPropertyValue(el, 'value', false);
+            assertPropertyValue(iconButton, 'icon', 'now:caret-down');
+
+          });
+        }); 
+
+        suite('modelRoot behavior', function() {
+
+          test('modelroot is not set', function() {
+            var el = fixture('propertyTest');
+            assertInitialState(el);
+
+            var event = { 
+              detail: { 
+                model: { 
+                  href: demo1Link 
+                }
+              }
+            };
+
+            el.actionListener(event);
+            assertPropertyValue(el, 'href', '');
+          }); 
+
+          test('modelroot is set', function() {
+            var el = fixture('propertyTest');
+            assertInitialState(el);
+
+            el.modelRoot = 'data.href';
+            assertPropertyValue(el, 'modelRoot', 'data.href');
+            
+            var event = { 
+              detail: { 
+                model: { 
+                  data: {
+                    href: demo1Link 
+                  }
+                }
+              }
+            };
+
+            el.actionListener(event);
+            assertPropertyValue(el, 'href', demo1Link);
+          }); 
+
+        });
+
+      });
+    });
+  </script>
+</body>
+</html>
