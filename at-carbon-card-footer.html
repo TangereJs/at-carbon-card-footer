@@ -34,9 +34,9 @@
 
       .footer-icon {
         vertical-align: middle;
-        display: block;        
+        display: block;
       }
-      
+
       .empty-icon {
         width: 40px;
         height: 40px; /* *todo*: define/find var */
@@ -54,16 +54,16 @@
           </div>
         </at-link>
       </template>
-     
+
       <div class="layout-horizontal layout-end-justified">
         <template is="dom-if" if="[[expandable]]">
-          <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>  
+          <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>
         </template>
         <template is="dom-if" if="[[!expandable]]">
           <div class="empty-icon"></div>
         </template>
       </div>
-     
+
     </div>
   </template>
 </dom-module>
@@ -74,10 +74,10 @@
 
       /**
        * Link label
-       * 
+       *
        * @property label
        * @type String
-       * @default empty 
+       * @default empty
        */
       label: {
         type: String,
@@ -86,7 +86,7 @@
 
       /**
        * Link href
-       * 
+       *
        * @property href
        * @type String
        * @default empty
@@ -98,10 +98,10 @@
 
       /**
        * Link xref
-       * 
+       *
        * @property xref
        * @type String
-       * @default empty 
+       * @default empty
        */
       xref: {
         type: String,
@@ -110,10 +110,10 @@
 
       /**
        * When true toggle icon is displayed. When false toggle icon is hidden.
-       * 
+       *
        * @property expandable
        * @type Boolean
-       * @default false 
+       * @default false
        */
       expandable: {
         type: Boolean,
@@ -122,7 +122,7 @@
 
       /**
        * When false denotes collapsed state. When true denotes expanded state.
-       * 
+       *
        * @property value
        * @type Boolean
        * @default false
@@ -135,10 +135,10 @@
 
       /**
        * modelRoot
-       * 
+       *
        * @property modelRoot
        * @type String
-       * @default '' 
+       * @default ''
        */
       modelRoot: {
         type: String,
@@ -157,8 +157,8 @@
     actionListener: function (event) {
 
       if (this.modelRoot) {
-        this.href = this._getObjPath(event.detail.model, this.modelRoot);        
-      } 
+        this.href = this._getObjPath(event.detail.model, this.modelRoot);
+      }
     },
 
     _getObjPath: function (obj, path) {
@@ -193,7 +193,7 @@
       this.value = !this.value;
       event.target.setAttribute("tap-event", "container-mode");
       event.target.setAttribute("tap-event-data", this.value ? "expanded" : "collapsed");
-      
+
     },
 
     ready: function() {
