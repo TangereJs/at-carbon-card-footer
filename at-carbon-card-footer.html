@@ -4,6 +4,7 @@
 <link rel="import" href="../at-core-style-classes/at-core-style-classes.html" />
 <link rel="import" href="../at-carbon-clamp/at-carbon-clamp.html" />
 <link rel="import" href="../at-carbon-icon/at-carbon-icon.html" />
+<link rel="import" href="../tangere/model-bind-behavior.html">
 
 <dom-module id="at-carbon-card-footer">
   <template>
@@ -54,6 +55,10 @@
         </at-link>
       </template>
 
+      <template is="dom-if" if="[[!_computeVisible(label, href)]]">
+        <div class="layout-flex" style="height:40px"></div>
+      </template>
+
       <div class="layout-horizontal layout-end-justified">
         <template is="dom-if" if="[[expandable]]">
           <at-carbon-icon-button class="footer-icon" icon="[[_computeIconName(value)]]" on-tap="_handleToggleButtonTap"></at-carbon-icon-button>
@@ -69,6 +74,7 @@
 <script>
   Polymer({
     is: "at-carbon-card-footer",
+    behaviors: [Tangere.behaviors.modelBind],
     properties: {
 
       /**
@@ -147,7 +153,7 @@
     },
 
     $meta: [{
-      title: "Footer",
+      title: "Card Footer",
       type: "element",
       xtype: "at-carbon-card-footer",
       icon: "now:caret-down"
@@ -158,6 +164,9 @@
       if (this.modelRoot) {
         this.href = this._getObjPath(event.detail.model, this.modelRoot);
       }
+
+      // trigger modelBind
+      this.model = event.detail.model.state.model;
     },
 
     _getObjPath: function (obj, path) {
