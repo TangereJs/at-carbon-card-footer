@@ -14,8 +14,7 @@
         display: block;
         box-sizing: border-box;
       }
-
-
+       
       .footer-link {
         display: block;
         width: 100%;
@@ -41,9 +40,13 @@
         width: 40px;
         height: 40px; /* *todo*: define/find var */
       }
+
+      .hidden {
+        display: none;
+      }
     </style>
 
-    <div class="layout-horizontal bt">
+    <div id="container" class="layout-horizontal bt" draggable="false">
       <template is="dom-if" if="[[_computeVisible(label, href)]]">
         <at-link href="[[href]]" xref="[[xref]]" label="[[label]]" class="footer-link layout-flex font-subhead">
           <div class="layout-horizontal layout-center" style="height:40px">
@@ -148,6 +151,12 @@
       modelRoot: {
         type: String,
         value: ""
+      },
+
+      hide: {
+        type: Boolean,
+        value: false,
+        observer: '_hideChanged'
       }
 
     },
@@ -166,8 +175,14 @@
       }
 
       // trigger modelBind
-      this.model = event.detail.model.state.model;
+      this._updateModel(event.detail.model.state.model);
     },
+
+    _hideChanged: function (newValue, oldValue) {
+      var wrapper = this.$.container;
+      this.toggleClass('hidden', newValue, wrapper);
+    },
+
 
     _getObjPath: function (obj, path) {
 
