@@ -5,10 +5,12 @@
 <link rel="import" href="../at-carbon-clamp/at-carbon-clamp.html" />
 <link rel="import" href="../at-carbon-icon/at-carbon-icon.html" />
 <link rel="import" href="../tangere/model-bind-behavior.html">
+<link rel="import" href="../at-core-theme/at-core-theme-global.html">
 
 <dom-module id="at-carbon-card-footer">
   <template>
     <style include="at-core-style-classes"></style>
+    <style include="at-core-theme-global"></style>
     <style>
        :host {
         display: block;
@@ -46,9 +48,9 @@
       }
     </style>
 
-    <div id="container" class="layout-horizontal bt" draggable="false">
+    <div id="container" class="layout-horizontal at-carbon-card-footer bt" draggable="false">
       <template is="dom-if" if="[[_computeVisible(label, href)]]">
-        <at-link href="[[href]]" xref="[[xref]]" label="[[label]]" class="footer-link layout-flex font-subhead">
+        <at-link href="[[href]]" xref="[[xref]]" label="[[label]]" class="footer-link layout-flex font-subhead action">
           <div class="layout-horizontal layout-center" style="height:40px">
             <at-carbon-clamp class="footer-label pl" text="[[label]]"></at-carbon-clamp>
             <template is="dom-if" if="[[_computeRenderSpacer(label, href, expandable)]]">
