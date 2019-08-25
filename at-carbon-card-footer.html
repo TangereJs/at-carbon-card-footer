@@ -183,6 +183,8 @@
     }],
 
     actionListener: function (event) {
+      var model = event.detail.model.state.model;
+      this._container = model._container;
 
       if (this.modelRoot) {
         this.href = this._getObjPath(event.detail.model, this.modelRoot);
@@ -190,6 +192,11 @@
 
       // trigger modelBind
       this._updateModel(event.detail.model.state.model);
+
+
+      if (this._container == "modal") {
+        this.expandable = false;       
+      }
     },
 
     _hideChanged: function (newValue, oldValue) {
@@ -230,13 +237,9 @@
       this.value = !this.value;
       event.target.setAttribute("tap-event", "container-mode");
       event.target.setAttribute("tap-event-data", this.value ? "expanded" : "collapsed");
-
-      // 
+            
       // expand mode is passed as attribute to not break existing handling of expanded / collapsed in containers
-      // When a more formal system is defined for passing tap-event-data, include expand mode into that system
-      // 
-      // -- ij, on 2018-12-11
-      // 
+      // When a more formal system is defined for passing tap-event-data, include expand mode into that system      
       event.target.setAttribute("tap-event-expand-mode", this.expandMode);
     },
 
